@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+
+<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Entrepreneurship Fundamentals: A Deep Dive</title> <script src="https://cdn.tailwindcss.com"></script> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"> <style> body { font-family: 'Inter', sans-serif; background-color: #fafaf9; /* Stone-50 / color: #1c1917; / Stone-900 / } h1, h2, h3, h4 { font-family: 'Merriweather', serif; } / Chart Container Strict Styling */ .chart-container { position: relative; width: 100%; margin-left: auto; margin-right: auto; } .chart-radar-container { height: 350px; max-width: 500px; } .chart-doughnut-container { height: 300px; max-width: 400px; }
+
+    /* Custom Scrollbar for sleek look */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f5f5f4; 
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #d6d3d1; 
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a29e; 
+    }
+
+    /* Transition utilities */
+    .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-circle.active {
+        background-color: #d97706; /* Amber-600 */
+        color: white;
+        border-color: #d97706;
+    }
+    .step-line.active {
+        background-color: #d97706;
+    }
+</style>
+</head> <body class="antialiased selection:bg-amber-200 selection:text-amber-900">
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-stone-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <span class="text-2xl text-amber-600">⚡</span>
+                <span class="font-bold text-xl tracking-tight text-stone-800">Entreprendre</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <button onclick="scrollToSection('core')" class="text-stone-600 hover:text-amber-600 px-3 py-2 text-sm font-medium transition-colors">The Core</button>
+                <button onclick="scrollToSection('process')" class="text-stone-600 hover:text-amber-600 px-3 py-2 text-sm font-medium transition-colors">The Process</button>
+                <button onclick="scrollToSection('impact')" class="text-stone-600 hover:text-amber-600 px-3 py-2 text-sm font-medium transition-colors">Economic Impact</button>
+                <button onclick="scrollToSection('careers')" class="text-stone-600 hover:text-amber-600 px-3 py-2 text-sm font-medium transition-colors">Careers</button>
+            </div>
+            <!-- Mobile Menu Button (simplified interaction) -->
+            <button class="md:hidden text-stone-500 hover:text-stone-900" id="mobile-menu-btn">
+                <span class="text-2xl">☰</span>
+            </button>
+        </div>
+    </div>
+    <!-- Mobile Menu Panel -->
+    <div class="md:hidden hidden bg-white border-b border-stone-200" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <button onclick="scrollToSection('core')" class="block w-full text-left text-stone-600 hover:bg-stone-50 px-3 py-2 rounded-md text-base font-medium">The Core</button>
+            <button onclick="scrollToSection('process')" class="block w-full text-left text-stone-600 hover:bg-stone-50 px-3 py-2 rounded-md text-base font-medium">The Process</button>
+            <button onclick="scrollToSection('impact')" class="block w-full text-left text-stone-600 hover:bg-stone-50 px-3 py-2 rounded-md text-base font-medium">Economic Impact</button>
+            <button onclick="scrollToSection('careers')" class="block w-full text-left text-stone-600 hover:bg-stone-50 px-3 py-2 rounded-md text-base font-medium">Careers</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="bg-gradient-to-br from-stone-100 to-amber-50 border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl sm:text-5xl font-bold text-stone-900 mb-6">The Art of <span class="text-amber-600">Undertaking</span></h1>
+        <p class="text-xl text-stone-600 max-w-3xl mx-auto leading-relaxed mb-8">
+            Entrepreneurship is more than starting a business. It is the art of observing correct practices to manage a self-owned, wealth-creating enterprise that provides value to customers.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 text-sm text-stone-500">
+            <span class="bg-white px-4 py-2 rounded-full shadow-sm border border-stone-200">Origin: French <em>"Entreprendre"</em></span>
+            <span class="bg-white px-4 py-2 rounded-full shadow-sm border border-stone-200">Focus: Wealth Creation</span>
+            <span class="bg-white px-4 py-2 rounded-full shadow-sm border border-stone-200">Nature: Risk-Taking</span>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+    <!-- SECTION: The Core (Competencies & Characteristics) -->
+    <section id="core" class="scroll-mt-24">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-stone-800">The Entrepreneur's Core</h2>
+            <p class="mt-4 text-stone-600 max-w-2xl mx-auto">
+                Successful entrepreneurship relies on a specific blend of competencies and character traits. This dashboard visualizes the balance between personal drive, business acumen, and interpersonal skills required to succeed.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            
+            <!-- Left: Interactive Radar Chart (Competencies) -->
+            <div class="bg-white rounded-xl shadow-lg border border-stone-100 p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-stone-800">Competency Map</h3>
+                    <span class="text-xs text-stone-500 bg-stone-100 px-2 py-1 rounded">Interactive Visualization</span>
+                </div>
+                <div class="chart-container chart-radar-container">
+                    <canvas id="competencyChart"></canvas>
+                </div>
+                <div class="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-100">
+                    <h4 id="comp-title" class="font-bold text-amber-800 mb-2">Hover over the chart</h4>
+                    <p id="comp-desc" class="text-sm text-amber-900/80">Explore the three pillars of entrepreneurial competence: Personal, Business, and Interpersonal skills.</p>
+                </div>
+            </div>
+
+            <!-- Right: Characteristics Clusters (Tabs) -->
+            <div class="bg-white rounded-xl shadow-lg border border-stone-100 p-6 h-full flex flex-col">
+                <h3 class="text-lg font-semibold text-stone-800 mb-6">Characteristic Clusters</h3>
+                
+                <!-- Tabs Navigation -->
+                <div class="flex space-x-2 border-b border-stone-200 mb-6">
+                    <button onclick="switchTab('achievement')" class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-amber-500 text-amber-600 focus:outline-none transition-colors" data-target="achievement">Achievement</button>
+                    <button onclick="switchTab('planning')" class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-stone-500 hover:text-stone-700 focus:outline-none transition-colors" data-target="planning">Planning</button>
+                    <button onclick="switchTab('power')" class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-stone-500 hover:text-stone-700 focus:outline-none transition-colors" data-target="power">Power</button>
+                </div>
+
+                <!-- Tabs Content -->
+                <div id="achievement-content" class="tab-content flex-1 fade-in">
+                    <p class="text-stone-600 mb-4 text-sm">Focused on accomplishing tasks and taking calculated risks.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🎯</span> <div><span class="font-semibold block text-stone-800">Opportunity Seeker</span><span class="text-xs text-stone-500">Sees and acts on new business possibilities.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🎲</span> <div><span class="font-semibold block text-stone-800">Risk Taker</span><span class="text-xs text-stone-500">Takes calculated risks for higher returns.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">💪</span> <div><span class="font-semibold block text-stone-800">Persistent & Committed</span><span class="text-xs text-stone-500">Takes repeated actions to overcome obstacles.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">✨</span> <div><span class="font-semibold block text-stone-800">Quality Oriented</span><span class="text-xs text-stone-500">Strives for excellence and efficiency.</span></div></li>
+                    </ul>
+                </div>
+
+                <div id="planning-content" class="tab-content hidden fade-in">
+                    <p class="text-stone-600 mb-4 text-sm">Focused on organization, information, and preparation.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">📅</span> <div><span class="font-semibold block text-stone-800">Goal Setter</span><span class="text-xs text-stone-500">Sets clear, specific, and long-term objectives.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🔍</span> <div><span class="font-semibold block text-stone-800">Information Seeker</span><span class="text-xs text-stone-500">Personally seeks data on clients, suppliers, and competitors.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">📊</span> <div><span class="font-semibold block text-stone-800">Systematic Monitor</span><span class="text-xs text-stone-500">Develops logical procedures to ensure work is completed.</span></div></li>
+                    </ul>
+                </div>
+
+                <div id="power-content" class="tab-content hidden fade-in">
+                    <p class="text-stone-600 mb-4 text-sm">Focused on influence, leadership, and self-belief.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🤝</span> <div><span class="font-semibold block text-stone-800">Persuasive Networker</span><span class="text-xs text-stone-500">Uses deliberate strategies to influence others.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🦁</span> <div><span class="font-semibold block text-stone-800">Self-Confident</span><span class="text-xs text-stone-500">Expresses confidence in own ability to complete a difficult task.</span></div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: Decision Making (Cards) -->
+    <section>
+        <div class="bg-stone-800 rounded-2xl p-8 sm:p-12 text-white shadow-xl">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl font-bold text-amber-400">Entrepreneurial Decision-Making</h2>
+                <p class="mt-2 text-stone-300">Three distinct modes of thinking required to solve business problems.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-stone-700/50 p-6 rounded-xl border border-stone-600 hover:border-amber-500 transition-colors duration-300">
+                    <div class="text-3xl mb-4">🧠</div>
+                    <h3 class="text-xl font-bold mb-2">Critical Thinking</h3>
+                    <p class="text-stone-300 text-sm leading-relaxed">Systematic and rational way of providing an answer. It follows structured steps in responding to an inquiry.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-stone-700/50 p-6 rounded-xl border border-stone-600 hover:border-amber-500 transition-colors duration-300">
+                    <div class="text-3xl mb-4">💡</div>
+                    <h3 class="text-xl font-bold mb-2">Creative Thinking</h3>
+                    <p class="text-stone-300 text-sm leading-relaxed">Thought process bringing about discovery of new ideas. Starts from a dream, insight, or mere observation.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-stone-700/50 p-6 rounded-xl border border-stone-600 hover:border-amber-500 transition-colors duration-300">
+                    <div class="text-3xl mb-4">♟️</div>
+                    <h3 class="text-xl font-bold mb-2">Strategic Thinking</h3>
+                    <p class="text-stone-300 text-sm leading-relaxed">Assess current situation to be useful in formulating future plans. Long-term oriented.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: The Process -->
+    <section id="process" class="scroll-mt-24">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-stone-800">The Entrepreneurial Journey</h2>
+            <p class="mt-4 text-stone-600 max-w-2xl mx-auto">
+                Entrepreneurship is not an event, but a process. Navigate through the 5 key stages of bringing a business from concept to reality.
+            </p>
+        </div>
+
+        <!-- Stepper Container -->
+        <div class="max-w-5xl mx-auto">
+            <!-- Visual Stepper -->
+            <div class="relative flex justify-between items-center mb-12">
+                <!-- Background Line -->
+                <div class="absolute top-1/2 left-0 w-full h-1 bg-stone-200 -z-10 transform -translate-y-1/2"></div>
+                
+                <!-- Steps -->
+                <div class="step-container flex-1 flex justify-center"><button onclick="setProcessStep(0)" class="step-circle active w-10 h-10 md:w-14 md:h-14 rounded-full bg-white border-4 border-amber-500 text-amber-600 font-bold flex items-center justify-center hover:scale-110 transition-all shadow-md">1</button></div>
+                <div class="step-container flex-1 flex justify-center"><button onclick="setProcessStep(1)" class="step-circle w-10 h-10 md:w-14 md:h-14 rounded-full bg-white border-4 border-stone-300 text-stone-500 font-bold flex items-center justify-center hover:scale-110 transition-all shadow-md">2</button></div>
+                <div class="step-container flex-1 flex justify-center"><button onclick="setProcessStep(2)" class="step-circle w-10 h-10 md:w-14 md:h-14 rounded-full bg-white border-4 border-stone-300 text-stone-500 font-bold flex items-center justify-center hover:scale-110 transition-all shadow-md">3</button></div>
+                <div class="step-container flex-1 flex justify-center"><button onclick="setProcessStep(3)" class="step-circle w-10 h-10 md:w-14 md:h-14 rounded-full bg-white border-4 border-stone-300 text-stone-500 font-bold flex items-center justify-center hover:scale-110 transition-all shadow-md">4</button></div>
+                <div class="step-container flex-1 flex justify-center"><button onclick="setProcessStep(4)" class="step-circle w-10 h-10 md:w-14 md:h-14 rounded-full bg-white border-4 border-stone-300 text-stone-500 font-bold flex items-center justify-center hover:scale-110 transition-all shadow-md">5</button></div>
+            </div>
+
+            <!-- Step Content Card -->
+            <div id="process-content" class="bg-white rounded-xl shadow-lg border border-stone-100 p-8 text-center transition-all duration-300 transform">
+                <span class="text-amber-500 font-bold tracking-wider text-sm uppercase mb-2 block">Stage 1</span>
+                <h3 class="text-2xl font-bold text-stone-800 mb-4">Discovery</h3>
+                <p class="text-stone-600 leading-relaxed mb-6">
+                    Recognition of a business idea or the detection of opportunities that could make money for the entrepreneur.
+                </p>
+                <div class="inline-flex items-center gap-2 text-sm text-stone-500 bg-stone-50 px-4 py-2 rounded-full">
+                    <span>🚀</span> <span>Starting point of innovation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: Economic Impact (Jenny's Case) -->
+    <section id="impact" class="scroll-mt-24">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-stone-800">The Domino Effect of Wealth</h2>
+            <p class="mt-4 text-stone-600 max-w-2xl mx-auto">
+                Entrepreneurship doesn't just enrich the owner. It creates a cascade of economic benefits for employees, the government, and the community. Explore the case of <strong>Jenny's Hair Saloon</strong> below.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 bg-white rounded-2xl shadow-xl border border-stone-100 p-6 lg:p-10">
+            
+            <!-- Chart Col -->
+            <div class="lg:col-span-1 flex flex-col justify-center">
+                <div class="chart-container chart-doughnut-container">
+                    <canvas id="impactChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-stone-400 mt-4">Click segments to see impact details</p>
+            </div>
+
+            <!-- Narrative Col -->
+            <div class="lg:col-span-2 flex flex-col justify-center pl-0 lg:pl-8 border-t lg:border-t-0 lg:border-l border-stone-100 pt-6 lg:pt-0">
+                <div id="impact-detail" class="fade-in">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-2">Total Economic Value</h3>
+                    <div class="text-4xl font-light text-amber-600 mb-6">₱1,425,000</div>
+                    
+                    <div class="space-y-4">
+                        <div class="p-4 bg-stone-50 rounded-lg border-l-4 border-amber-500">
+                            <h4 class="font-bold text-stone-800">Who Benefits?</h4>
+                            <p class="text-stone-600 text-sm mt-1" id="benefit-text">Click the chart to explore how revenue is distributed.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-stone-50 rounded-lg border-l-4 border-stone-300">
+                            <h4 class="font-bold text-stone-800">Community Impact</h4>
+                            <p class="text-stone-600 text-sm mt-1" id="community-text">Taxes collected return to the public as infrastructure (roads, lights) and security.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- SECTION: Careers -->
+    <section id="careers" class="scroll-mt-24">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-stone-800">Career Opportunities</h2>
+            <p class="mt-4 text-stone-600">Entrepreneurial competencies open doors to diverse career paths beyond just starting a business.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">👔</div>
+                <h4 class="font-medium text-stone-800">Mid-level Mgmt</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">💼</div>
+                <h4 class="font-medium text-stone-800">Business Consultant</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">📈</div>
+                <h4 class="font-medium text-stone-800">Sales</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">🔬</div>
+                <h4 class="font-medium text-stone-800">R&D</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">🤝</div>
+                <h4 class="font-medium text-stone-800">Fund Raiser</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">🎓</div>
+                <h4 class="font-medium text-stone-800">Teacher</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">👥</div>
+                <h4 class="font-medium text-stone-800">Recruiter</h4>
+            </div>
+            <div class="career-card bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md hover:border-amber-300 transition-all text-center">
+                <div class="text-2xl mb-2">📰</div>
+                <h4 class="font-medium text-stone-800">Business Reporter</h4>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold text-stone-200 mb-4 font-serif">Entreprendre</h2>
+        <p class="mb-8 max-w-md mx-auto text-sm">Empowering learners for the world of work through the art of wealth creation and value provision.</p>
+        <div class="text-xs text-stone-600">
+            <p>&copy; Entrepreneurship Fundamentals Interactive Module.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript Logic -->
+<script>
+    // --- 1. State & Data ---
+    
+    // Characteristic Clusters Data
+    const characteristicsData = {
+        achievement: {
+            content: `
+                <p class="text-stone-600 mb-4 text-sm">Focused on accomplishing tasks and taking calculated risks.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🎯</span> <div><span class="font-semibold block text-stone-800">Opportunity Seeker</span><span class="text-xs text-stone-500">Sees and acts on new business possibilities.</span></div></li>
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🎲</span> <div><span class="font-semibold block text-stone-800">Risk Taker</span><span class="text-xs text-stone-500">Takes calculated risks for higher returns (Risk Appetite).</span></div></li>
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">💪</span> <div><span class="font-semibold block text-stone-800">Persistent & Committed</span><span class="text-xs text-stone-500">Takes repeated actions to overcome obstacles. Tenacity.</span></div></li>
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">✨</span> <div><span class="font-semibold block text-stone-800">Quality Oriented</span><span class="text-xs text-stone-500">Strives for excellence and efficiency.</span></div></li>
+                </ul>`
+        },
+        planning: {
+            content: `
+                <p class="text-stone-600 mb-4 text-sm">Focused on organization, information, and preparation.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">📅</span> <div><span class="font-semibold block text-stone-800">Goal Setter</span><span class="text-xs text-stone-500">Sets clear, specific, and long-term objectives.</span></div></li>
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🔍</span> <div><span class="font-semibold block text-stone-800">Information Seeker</span><span class="text-xs text-stone-500">Personally seeks data on clients, suppliers, and competitors.</span></div></li>
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">📊</span> <div><span class="font-semibold block text-stone-800">Systematic Monitor</span><span class="text-xs text-stone-500">Develops logical procedures to ensure work is completed.</span></div></li>
+                </ul>`
+        },
+        power: {
+            content: `
+                <p class="text-stone-600 mb-4 text-sm">Focused on influence, leadership, and self-belief.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🤝</span> <div><span class="font-semibold block text-stone-800">Persuasive Networker</span><span class="text-xs text-stone-500">Uses deliberate strategies to influence others.</span></div></li>
+                    <li class="flex items-start gap-3"><span class="text-amber-500 text-lg">🦁</span> <div><span class="font-semibold block text-stone-800">Self-Confident</span><span class="text-xs text-stone-500">Expresses confidence in own ability to complete a difficult task.</span></div></li>
+                </ul>`
+        }
+    };
+
+    // Process Data
+    const processSteps = [
+        { title: "Discovery", desc: "Recognition of a business idea or the detection of opportunities that could make money for the entrepreneur.", icon: "🚀", sub: "Starting point of innovation" },
+        { title: "Concept Development", desc: "Giving more ideas on how the business can be realized. Suggests the preparation of a formal <strong>Business Plan</strong>.", icon: "📝", sub: "Planning & Refining" },
+        { title: "Organizing Resources", desc: "Identifying, sourcing, and financing human, non-human, and other resources needed in the business (Capital, Staff, Equipment).", icon: "🏗️", sub: "Building the Foundation" },
+        { title: "Implementation", desc: "Carrying out the business plan. Activities include management of human, physical, technological, and financial resources.", icon: "⚙️", sub: "Execution & Operations" },
+        { title: "Reaping Returns", desc: "Strategies related to the expansion of the business firm. Addressing conditions in the environment that affect the future.", icon: "💰", sub: "Growth & Sustainability" }
+    ];
+
+    // Impact Data (Jenny's Case)
+    const jennyData = {
+        labels: ['Entrepreneur Profit', 'Employees (Salaries)', 'Landlord (Rent)', 'Govt (Tax)', 'Supplier'],
+        data: [590000, 540000, 120000, 115000, 60000],
+        colors: ['#d97706', '#f59e0b', '#fbbf24', '#78716c', '#a8a29e'], // Amber shades + Stone
+        descriptions: [
+            "<strong>Jenny (The Entrepreneur)</strong> earns a profit of ₱590,000. This is the reward for risk-taking and management.",
+            "<strong>5 Beauticians</strong> earn a total of ₱540,000. This provides livelihood for five families.",
+            "<strong>The Landlord</strong> earns ₱120,000 annually. This stimulates the real estate market.",
+            "<strong>Government</strong> collects ₱115,000 (Local + National). This funds public services.",
+            "<strong>Suppliers</strong> earn ₱60,000. This supports other businesses in the supply chain."
+        ]
+    };
+
+    // --- 2. Interaction Logic ---
+
+    // Tab Switching
+    function switchTab(target) {
+        // Update buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            if(btn.dataset.target === target) {
+                btn.classList.remove('border-transparent', 'text-stone-500', 'hover:text-stone-700');
+                btn.classList.add('border-amber-500', 'text-amber-600');
+            } else {
+                btn.classList.add('border-transparent', 'text-stone-500', 'hover:text-stone-700');
+                btn.classList.remove('border-amber-500', 'text-amber-600');
+            }
+        });
+
+        // Update content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        const activeContent = document.getElementById(`${target}-content`);
+        activeContent.classList.remove('hidden');
+    }
+
+    // Process Stepper Logic
+    function setProcessStep(index) {
+        // Update circles
+        const circles = document.querySelectorAll('.step-circle');
+        circles.forEach((circle, i) => {
+            if (i === index) {
+                circle.classList.add('active', 'bg-amber-600', 'text-white', 'border-amber-600');
+                circle.classList.remove('bg-white', 'text-stone-500', 'border-stone-300');
+            } else {
+                circle.classList.remove('active', 'bg-amber-600', 'text-white', 'border-amber-600');
+                circle.classList.add('bg-white', 'text-stone-500', 'border-stone-300');
+            }
+        });
+
+        // Update Content
+        const contentDiv = document.getElementById('process-content');
+        const step = processSteps[index];
+        
+        // Simple fade effect
+        contentDiv.style.opacity = '0';
+        contentDiv.style.transform = 'translateY(10px)';
+        
+        setTimeout(() => {
+            contentDiv.innerHTML = `
+                <span class="text-amber-500 font-bold tracking-wider text-sm uppercase mb-2 block">Stage ${index + 1}</span>
+                <h3 class="text-2xl font-bold text-stone-800 mb-4">${step.title}</h3>
+                <p class="text-stone-600 leading-relaxed mb-6">${step.desc}</p>
+                <div class="inline-flex items-center gap-2 text-sm text-stone-500 bg-stone-50 px-4 py-2 rounded-full">
+                    <span>${step.icon}</span> <span>${step.sub}</span>
+                </div>
+            `;
+            contentDiv.style.opacity = '1';
+            contentDiv.style.transform = 'translateY(0)';
+        }, 300);
+    }
+
+    // Scroll helper
+    function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        // Close mobile menu if open
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+        }
+    }
+
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    });
+
+
+    // --- 3. Chart Initialization ---
+
+    window.onload = function() {
+        
+        // Radar Chart: Competencies
+        const ctxRadar = document.getElementById('competencyChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: [
+                    ['Personal', '(Creativity, Tenacity)'], 
+                    ['Business', '(Vision, Networking)'], 
+                    ['Interpersonal', '(Charisma, Respect)']
+                ],
+                datasets: [{
+                    label: 'Competency Balance',
+                    data: [90, 85, 80], // Illustrative high values
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)', // Amber-500 with opacity
+                    borderColor: 'rgba(217, 119, 6, 1)', // Amber-600
+                    pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+                    pointBorderColor: '#d97706',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#d97706',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#e7e5e4' }, // Stone-200
+                        grid: { color: '#e7e5e4' },
+                        pointLabels: {
+                            font: { size: 12, family: "'Inter', sans-serif" },
+                            color: '#44403c' // Stone-700
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false } // Hide numbers for cleaner look
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                // Custom text updates based on hover
+                                const desc = {
+                                    0: "Personal: Determination, Integrity, Emotional Balance.",
+                                    1: "Business: Resource Management, Negotiation.",
+                                    2: "Interpersonal: Communication, Delegation, Engagement."
+                                };
+                                document.getElementById('comp-desc').innerText = desc[context.dataIndex];
+                                document.getElementById('comp-title').innerText = context.chart.data.labels[context.dataIndex][0] + " Competencies";
+                                return context.formattedValue + '% Mastery';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Doughnut Chart: Impact
+        const ctxDoughnut = document.getElementById('impactChart').getContext('2d');
+        const impactChart = new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: jennyData.labels,
+                datasets: [{
+                    data: jennyData.data,
+                    backgroundColor: jennyData.colors,
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 20
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20,
+                            font: { family: "'Inter', sans-serif", size: 11 },
+                            color: '#57534e'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ' ₱' + context.parsed.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                onClick: (e, activeElements) => {
+                    if (activeElements.length > 0) {
+                        const index = activeElements[0].index;
+                        // Update Narrative Text
+                        const detailDiv = document.getElementById('impact-detail');
+                        const benefitText = document.getElementById('benefit-text');
+                        
+                        // Highlight value
+                        detailDiv.querySelector('.text-4xl').innerText = '₱' + jennyData.data[index].toLocaleString();
+                        detailDiv.querySelector('h3').innerText = jennyData.labels[index];
+                        
+                        // Update desc
+                        benefitText.innerHTML = jennyData.descriptions[index];
+                    } else {
+                        // Reset
+                        document.querySelector('#impact-detail .text-4xl').innerText = '₱1,425,000';
+                        document.querySelector('#impact-detail h3').innerText = 'Total Economic Value';
+                        document.getElementById('benefit-text').innerText = "Click the chart to explore how revenue is distributed.";
+                    }
+                }
+            }
+        });
+    };
+</script>
+</body> </html>
